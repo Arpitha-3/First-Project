@@ -12,6 +12,7 @@
 
 # Generated Sources
 target
+*.txt
 
 # IDE Files
 .idea
