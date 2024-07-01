@@ -1,23 +1,22 @@
-pipeline {
-  agent any
+pipeline{
+    agent any
 
-  stages {
-    stage('Build') {
-      steps {
-        echo 'This is build stage'
-      }
-  }
-stage('Test') {
-    steps {
-      echo 'This is Test Satge'
+    tools {
+         maven 'maven'
+         jdk 'java'
     }
-}
 
-stage ('Release') {
-  steps {
-    echo 'This is Release stage'
+    stages{
+        stage('checkout'){
+            steps{
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: ' ', url: 'https://github.com/Arpitha-3/First-Project.git']]])
+            }
+        }
+        stage('build'){
+            steps{
+               bat 'mvn spring-boot:run'
+            }
+        }
     }
-  }
-}
 }
 
